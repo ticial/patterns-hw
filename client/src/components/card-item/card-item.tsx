@@ -1,14 +1,14 @@
-import type { DraggableProvided } from '@hello-pangea/dnd';
+import type { DraggableProvided } from "@hello-pangea/dnd";
 
-import type { Card } from '../../common/types';
-import { CopyButton } from '../primitives/copy-button';
-import { DeleteButton } from '../primitives/delete-button';
-import { Splitter } from '../primitives/styled/splitter';
-import { Text } from '../primitives/text';
-import { Title } from '../primitives/title';
-import { Container } from './styled/container';
-import { Content } from './styled/content';
-import { Footer } from './styled/footer';
+import { type Card } from "../../common/types/types";
+import { CopyButton } from "../primitives/copy-button";
+import { DeleteButton } from "../primitives/delete-button";
+import { Splitter } from "../primitives/styled/splitter";
+import { Text } from "../primitives/text";
+import { Title } from "../primitives/title";
+import { Container } from "./styled/container";
+import { Content } from "./styled/content";
+import { Footer } from "./styled/footer";
 
 type Props = {
   card: Card;
@@ -29,12 +29,7 @@ export const CardItem = ({ card, isDragging, provided }: Props) => {
       aria-label={card.name}
     >
       <Content>
-        <Title
-          onChange={() => {}}
-          title={card.name}
-          fontSize="large"
-          isBold
-        />
+        <Title onChange={() => {}} title={card.name} fontSize="large" isBold />
         <Text text={card.description} onChange={() => {}} />
         <Footer>
           <DeleteButton onClick={() => {}} />

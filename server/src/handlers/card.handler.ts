@@ -1,21 +1,21 @@
-import type { Socket } from 'socket.io';
+import type { Socket } from "socket.io";
 
-import { CardEvent } from '../common/enums';
-import { Card } from '../data/models/card';
-import { SocketHandler } from './socket.handler';
+import { CardEvent } from "../common/enums/enums";
+import { Card } from "../data/models/card";
+import { SocketHandler } from "./socket.handler";
 
-export class CardHandler extends SocketHandler {
+class CardHandler extends SocketHandler {
   public handleConnection(socket: Socket): void {
     socket.on(CardEvent.CREATE, this.createCard.bind(this));
     socket.on(CardEvent.REORDER, this.reorderCards.bind(this));
   }
 
   public createCard(listId: string, cardName: string): void {
-    const newCard = new Card(cardName, '');
+    const newCard = new Card(cardName, "");
     const lists = this.db.getData();
 
     const updatedLists = lists.map((list) =>
-      list.id === listId ? list.setCards(list.cards.concat(newCard)) : list,
+      list.id === listId ? list.setCards(list.cards.concat(newCard)) : list
     );
 
     this.db.setData(updatedLists);
@@ -45,3 +45,5 @@ export class CardHandler extends SocketHandler {
     this.updateLists();
   }
 }
+
+export { CardHandler };

@@ -1,13 +1,12 @@
-import { createServer } from 'http';
-import { Server, Socket } from 'socket.io';
+import { createServer } from "http";
+import { Server, Socket } from "socket.io";
 
-import { lists } from './assets/mockData';
-import { Database } from './data/database';
-import { CardHandler } from './handlers/card.handler';
-import { ListHandler } from './handlers/list.handler';
-import { ReorderService } from './services/reorder.service';
+import { lists } from "./assets/mock-data";
+import { Database } from "./data/database";
+import { CardHandler, ListHandler } from "./handlers/handlers";
+import { ReorderService } from "./services/reorder.service";
 
-const PORT = 3003;
+const PORT = 3005;
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
