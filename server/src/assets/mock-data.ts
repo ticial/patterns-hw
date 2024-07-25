@@ -1,7 +1,7 @@
 import { Card } from '../data/models/card';
 import { List } from '../data/models/list';
 
-const toDo = new List("To do");
+const toDo = new List("To Do");
 toDo.cards = [
   new Card(
     "Implement renaming lists",
@@ -37,7 +37,7 @@ toDo.cards = [
   ),
 ];
 
-const inProgress = new List("In progress");
+const inProgress = new List("In Progress");
 inProgress.cards = [
   new Card(
     "Implement adding lists",

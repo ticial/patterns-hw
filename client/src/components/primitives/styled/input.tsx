@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import { BORDER_RADIUS } from '../../../common/constants';
-
 type Props = {
   fontSize: "x-large" | "large" | "medium";
   width?: number;
@@ -9,7 +7,7 @@ type Props = {
 };
 
 const Input = styled.input<Props>`
-  border-radius: ${BORDER_RADIUS}px;
+  border-radius: 2px;
   animation-duration: 0.01s;
   animation-name: mui-auto-fill-cancel;
   border-color: rgba(0, 0, 0, 0.87);
@@ -21,7 +19,7 @@ const Input = styled.input<Props>`
   font-weight: ${({ isBold }) => (isBold ? "bold" : "normal")};
 
   &:focus {
-    outline: solid 1px #4c9aff;
+    outline: none;
   }
 `;
 

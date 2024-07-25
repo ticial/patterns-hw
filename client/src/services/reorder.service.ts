@@ -1,6 +1,6 @@
-import type { DraggableLocation } from '@hello-pangea/dnd';
+import type { DraggableLocation } from "@hello-pangea/dnd";
 
-import { Card, List } from '../common/types';
+import { type Card, type List } from "../common/types/types";
 
 export const reorderService = {
   reorderLists(items: List[], startIndex: number, endIndex: number): List[] {
@@ -13,7 +13,7 @@ export const reorderService = {
   reorderCards(
     lists: List[],
     source: DraggableLocation,
-    destination: DraggableLocation,
+    destination: DraggableLocation
   ): List[] {
     const current: Card[] =
       lists.find((list) => list.id === source.droppableId)?.cards || [];
@@ -29,7 +29,7 @@ export const reorderService = {
       const reordered: Card[] = current;
 
       return lists.map((list) =>
-        list.id === source.droppableId ? { ...list, cards: reordered } : list,
+        list.id === source.droppableId ? { ...list, cards: reordered } : list
       );
     }
 

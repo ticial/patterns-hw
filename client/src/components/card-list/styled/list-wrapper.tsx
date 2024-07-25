@@ -1,32 +1,10 @@
-import { colors } from '@atlaskit/theme';
-import styled from '@emotion/styled';
-import type { DroppableProvidedProps } from '@hello-pangea/dnd';
+import { colors } from "@atlaskit/theme";
+import styled from "@emotion/styled";
 
-import { SPACE_IN_PX } from '../../../common/constants';
+import { SPACE_IN_PX } from "../../../common/constants/constants";
 
-const getBackgroundColor = (
-  isDraggingOver: boolean,
-  isDraggingFrom: boolean,
-): string => {
-  if (isDraggingOver) {
-    return colors.R50;
-  }
-
-  if (isDraggingFrom) {
-    return colors.T50;
-  }
-
-  return colors.N30;
-};
-
-type Props = DroppableProvidedProps & {
-  isDraggingOver: boolean;
-  isDraggingFrom: boolean;
-};
-
-const ListWrapper = styled.div<Props>`
-  background-color: ${(props) =>
-    getBackgroundColor(props.isDraggingOver, props.isDraggingFrom)};
+const ListWrapper = styled.div`
+  background-color: ${colors.N30}
   display: flex;
   flex-direction: column;
   opacity: inherit;
