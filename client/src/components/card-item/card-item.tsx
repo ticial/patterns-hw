@@ -9,6 +9,8 @@ import { Title } from "../primitives/title";
 import { Container } from "./styled/container";
 import { Content } from "./styled/content";
 import { Footer } from "./styled/footer";
+import { CardEvent } from "../../common/enums/enums";
+import { socket } from "../../context/socket";
 
 type Props = {
   card: Card;
@@ -17,6 +19,23 @@ type Props = {
 };
 
 export const CardItem = ({ card, isDragging, provided }: Props) => {
+  const onTitleChange = (newTitle: string) => {
+    if (newTitle === card.name || newTitle === "") return;
+    socket.emit(CardEvent.RENAME, card.id, newTitle);
+  };
+
+  const onDescriptionChange = (newDescription: string) => {
+    if (newDescription === card.description || newDescription === "") return;
+    socket.emit(CardEvent.CHANGE_DESCRIPTION, card.id, newDescription);
+  };
+
+  const onDelete = () => {
+    socket.emit(CardEvent.DELETE, card.id);
+  };
+
+  const onCopy = () => {
+    socket.emit(CardEvent.COPY, card.id);
+  };
   return (
     <Container
       className="card-container"
@@ -29,12 +48,17 @@ export const CardItem = ({ card, isDragging, provided }: Props) => {
       aria-label={card.name}
     >
       <Content>
-        <Title onChange={() => {}} title={card.name} fontSize="large" isBold />
-        <Text text={card.description} onChange={() => {}} />
+        <Title
+          onChange={onTitleChange}
+          title={card.name}
+          fontSize="large"
+          isBold
+        />
+        <Text text={card.description} onChange={onDescriptionChange} />
         <Footer>
-          <DeleteButton onClick={() => {}} />
+          <DeleteButton onClick={onDelete} />
           <Splitter />
-          <CopyButton onClick={() => {}} />
+          <CopyButton onClick={onCopy} />
         </Footer>
       </Content>
     </Container>

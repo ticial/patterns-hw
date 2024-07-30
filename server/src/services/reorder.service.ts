@@ -1,28 +1,33 @@
 import { Card } from "../data/models/card";
 import { List } from "../data/models/list";
+import * as R from "ramda";
+
+type ReorderCardsParams = {
+  lists: List[];
+  sourceIndex: number;
+  destinationIndex: number;
+  sourceListId: string;
+  destinationListId: string;
+};
 
 class ReorderService {
-  public reorder<T>(items: T[], startIndex: number, endIndex: number): T[] {
-    const card = items[startIndex];
-    const listWithRemoved = this.remove(items, startIndex);
-    const result = this.insert(listWithRemoved, endIndex, card);
-
-    return result;
+  public static reorderLists<T>(
+    items: T[],
+    startIndex: number,
+    endIndex: number
+  ): T[] {
+    const removedItem = items[startIndex];
+    const withoutItem = R.remove(startIndex, 1, items);
+    return R.insert(endIndex, removedItem, withoutItem);
   }
 
-  public reorderCards({
+  public static reorderCards({
     lists,
     sourceIndex,
     destinationIndex,
     sourceListId,
     destinationListId,
-  }: {
-    lists: List[];
-    sourceIndex: number;
-    destinationIndex: number;
-    sourceListId: string;
-    destinationListId: string;
-  }): List[] {
+  }: ReorderCardsParams): List[] {
     const target: Card = lists.find((list) => list.id === sourceListId)
       ?.cards?.[sourceIndex];
 
@@ -32,11 +37,11 @@ class ReorderService {
 
     const newLists = lists.map((list) => {
       if (list.id === sourceListId) {
-        list.setCards(this.remove(list.cards, sourceIndex));
+        list.setCards(R.remove(sourceIndex, 1, list.cards));
       }
 
       if (list.id === destinationListId) {
-        list.setCards(this.insert(list.cards, destinationIndex, target));
+        list.setCards(R.insert(destinationIndex, target, list.cards));
       }
 
       return list;
@@ -44,14 +49,6 @@ class ReorderService {
 
     return newLists;
   }
-
-  private remove<T>(items: T[], index: number): T[] {
-    return [...items.slice(0, index), ...items.slice(index + 1)];
-  }
-
-  private insert<T>(items: T[], index: number, value: T): T[] {
-    return [...items.slice(0, index), value, ...items.slice(index)];
-  }
 }
 
-export { ReorderService };
+export { ReorderService, ReorderCardsParams };
